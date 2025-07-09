@@ -52,11 +52,34 @@ const Header = () => {
     animation: 'rotate 20s linear infinite'
   };
 
+  // Inject CSS animations
+  React.useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+      @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
+
   return (
     <header style={headerStyles}>
       <div style={backgroundEffectStyles}></div>
-      <h1 style={titleStyles}>🎯 Draw A Perfect Circle </h1>
-      <p style={subtitleStyles}>Lightning-fast neon-powered precision challenge!</p>
+      <h1 style={titleStyles}>🎯 Draw A Perfect Circle - Remix Edition</h1>
+      <p style={subtitleStyles}>Test your artistic precision in this neon-powered challenge!</p>
     </header>
   );
 };

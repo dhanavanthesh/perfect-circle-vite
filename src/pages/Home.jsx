@@ -7,7 +7,6 @@ const Home = () => {
   const [score, setScore] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showResult, setShowResult] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [animationProgress, setAnimationProgress] = useState(0);
 
   const canvasWidth = 600;
@@ -270,6 +269,20 @@ const Home = () => {
     textTransform: 'uppercase',
     letterSpacing: '1px'
   };
+
+  // Inject additional animations
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        60% { transform: translateY(-5px); }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
 
   return (
     <div style={containerStyles}>
